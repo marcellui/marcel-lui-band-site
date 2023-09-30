@@ -1,0 +1,325 @@
+@use "./partials/_typography.scss" as *;
+@use "./partials/mixins" as *;
+
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Avenir';
+}
+
+.nav{
+    display: flex;
+    color: white;
+    width: 100%;
+    &__item{
+        display: flex;
+        flex-direction: row;
+        padding-bottom: 1rem; 
+        justify-content: center;
+        width: 50%;
+        align-items: center;
+        @include tablet{
+            width: 15%;
+            padding-top: 1rem;
+           
+        }
+        @include desktop{
+            width: 8%;
+        }
+        &--live{
+            border-bottom: solid white 3px;
+            
+        }
+    }
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    @include tablet{
+        flex-direction: row;
+    }
+}
+.header-title{
+    color: white;
+    font-weight: 400;
+    text-align: center;
+    padding: 1rem 0px;
+    @include tablet{
+        display: flex;
+        padding-left: 3rem;
+        padding-right: 2rem;
+    }
+    @include desktop{
+        padding-left: 5rem;
+        padding-right: 4rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+}
+
+.hero-background{
+    background-image: url("/assets/Images/hero-bio.jpg");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    &::after{
+        background-color: rgba(0,0,0,0.5);
+        position:absolute;
+        top:0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        content: "";
+    }
+    &__title{
+        color: white;
+        font-weight: 600;
+        height: 250px;
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        font-size: 24px;
+        position: relative;
+        z-index: 3;
+        @include tablet{
+            height: 500px;
+            padding: 0 3rem;
+            font-size: 60px;
+        }
+        @include desktop{
+            height: 700px;
+            padding: 0 5rem;
+        }
+    }
+}
+
+.background1{
+    background-color: #323232;
+    
+}
+
+.about{
+    &__image-container{
+        display: flex;
+        justify-content: center;
+    }
+    &__image{
+        height: 60vw;   
+        @include tablet{
+            height: 50vw;
+        }
+    }
+    &__title{
+        padding-left: 1rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1rem;
+        font-weight: 600;
+        font-size: 1.5rem;
+        @include tablet{
+            font-size: 2.25rem;
+            padding-top: 2rem;
+            padding-left: 3rem;
+        }
+        @include desktop{
+            padding-left: 5rem;
+        }
+    }
+    &__quote{
+        padding-left: 1rem;
+        padding-top: 1.5rem;
+        font-weight: 600;
+        line-height: 20pt;
+        font-size:14px;
+        @include tablet{
+            font-size: 1.5rem;
+            line-height: 32pt;
+            padding-top:  2rem;
+            padding-left: 6.25rem;
+            padding-right: 5rem;
+        }
+        @include desktop{
+            padding-left: 11rem;
+            width: 69%;
+            padding-bottom: 1rem;
+        }
+        &--name{
+            padding-left: 1rem;
+            font-weight: 600;
+            line-height: 20pt;
+            font-size:0.875rem;
+            @include tablet{
+                padding-left: 6.25rem;
+            }
+            @include desktop{
+                padding-left: 11rem;
+            }
+        }
+    }
+    &__name{
+        padding-left: 1rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1rem;
+        font-weight: 600;
+        @include tablet{
+            padding-top: 2rem;
+            font-size: 1.5rem;
+            padding-left: 6.25rem;
+        }
+        @include desktop{
+            padding-left: 11rem;
+        }
+    }
+    &__container{
+        @include tablet{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    
+    &__text{
+        padding-left: 1rem;
+        padding-bottom: 1rem;
+        font-size: 0.8125rem;
+        line-height: 1.125rem;
+        @include tablet{
+            font-size: 0.8125rem;
+            display: flex;
+            flex-direction: row;
+            width: 40%;
+        }
+        @include desktop{
+            width: 38.5%;
+        }
+    }
+}
+.gallery{
+    background-color: #FAFAFA;
+    display: flex;
+    flex-direction: column;
+    &__title{
+        padding-left: 1rem;
+        @include tablet{
+            font-size: 2.25rem;
+            padding-left: 3rem;
+            padding-top: 2.5rem;
+            padding-bottom: 1.25rem;
+        }
+        @include desktop{
+            padding-left: 5rem;
+        }
+    }
+}
+
+.photo-gallery-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.photo-gallery{
+    width: 100%;
+    padding: 0 1rem;
+    @include tablet{
+        width: 30%;
+        margin-bottom: 1.25rem;
+    }
+   
+}
+
+.contact{
+    color: white;
+    padding-left: 1rem;
+    @include tablet{
+        padding-top:1.25rem;
+        position: relative;
+    }
+
+    &__container{
+        @include tablet{
+            display: flex;
+            align-content: center;
+        }
+        &--cards{
+            @include tablet{
+                display: flex;
+                padding-left: 2rem;
+            }
+        }
+
+    }
+    
+    &__title{
+        font-weight: 600;
+        font-size: 1.5rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1rem;
+        padding-right: 1rem;
+        
+        @include tablet{
+            display: flex;
+            font-size: 2.25rem;
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+        @include desktop{
+            padding-left: 5rem;
+        }
+    }
+
+    &__card{
+        margin-top: 1rem;
+        &--title{
+            font-weight: 600;
+        }
+        &--description{
+            padding-top: 1rem;
+        }
+        &--description2{
+            padding-bottom: 1rem;
+        }
+        &--info{
+            padding-bottom: 1rem;
+        }
+        @include tablet{
+            padding-left: 3rem;
+        }
+    }
+}
+
+.logo__container{
+    display: flex;
+   
+}
+
+.logo__item{
+    margin-right: 2.25rem;
+}
+
+.footer__title{
+    font-size: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    @include tablet{
+        position:absolute;
+        top: 2rem;
+        right: 3rem;
+    }
+   
+}
+.footer__copyright{
+    font-size: 0.8125rem;
+    @include tablet{
+        padding-left: 3rem;
+        padding-bottom: 2rem;
+    }
+    @include desktop{
+        padding-left: 5rem;
+        padding-top: 3rem;
+    }
+}
