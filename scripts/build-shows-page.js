@@ -1,41 +1,23 @@
-const showsArray = [
-    {
-        date: "Mon Sept 06 2021",
-        venue: "Ronald Lane",
-        location: "San Francisco, CA",
-        btn: "Buy Tickets"
-    },
-    {
-        date: "Tue Sept 21 2021",
-        venue: "Pier 3 East ",
-        location: "San Francisco, CA",
-        btn: "Buy Tickets"
-    },
-    {
-        date: "Fri Oct 15 2021",
-        venue: "View Lounge",
-        location: "San Francisco, CA",
-        btn: "Buy Tickets"
-    },
-    {
-        date: "Sat Nov 06 2021",
-        venue: "Hyatt Agency",
-        location: "San Francisco, CA",
-        btn: "Buy Tickets"
-    },
-    {
-        date: "Fri Nov 26 2021",
-        venue: "Moscow Center",
-        location: "San Francisco, CA",
-        btn: "Buy Tickets"
-    },
-    {
-        date: "Wed Dec 15 2021 ",
-        venue: "Press Club",
-        location: "San Francisco, CA",
-        btn: "Buy Tickets"
-    }
-]
+import {BandSiteAPI} from "./band-site-api.js"
+
+const apiKey = "fb090a24-a346-489b-806e-999ee80c8a37"
+
+const myBandSiteAPI =  new BandSiteAPI(apiKey);
+
+// console.log(myBandSiteAPI.getComments())
+// console.log(myBandSiteAPI.getShows())
+
+async function fetchShows(){
+     const result = await myBandSiteAPI.getShows();
+     const sortedArray = result.sort((a,b) => b.timestamp-a.timestamp);
+     console.log(result);
+     console.log(sortedArray)
+     for (let i = 0; i<sortedArray.length; i++){
+        displayShows(sortedArray[i])
+     }
+}
+
+fetchShows();
 
 const titleArray = [
     "Date: ","Venue: ", "Location: "
@@ -49,29 +31,38 @@ showCardTitle.innerText = "Shows";
 
 shows.appendChild(showCardTitle)
 
-for (let i =0; i<showsArray.length; i++){
-    function displayShows(showObj){
+
+function displayShows(showObj){
    
         const showCard = document.createElement("article");
         const showHeader = document.createElement("div");
         const showDate = document.createElement("p");
+        const dateTitle = document.createElement("h4");
+        dateTitle.innerText = titleArray[0];
         const showVenue = document.createElement("p");
         const showLocation = document.createElement("p");
         const showButton = document.createElement("button")
 
-        showDate.innerText += "Date: " + showObj.date;
-        showVenue.innerText += "Venue: "  + showObj.venue;
-        showLocation.innerText += "Location:" + showObj.location;
+        showDate.innerText +=  new Date(showObj.date).toLocaleDateString();
+        showVenue.innerText += "Venue: "  + showObj.place;
+        showLocation.innerText += "Location: " + showObj.location;
         showButton.innerText = "BUY TICKETS";
 
+        showHeader.appendChild(dateTitle);
         showHeader.appendChild(showDate);
         showHeader.appendChild(showVenue);
         showHeader.appendChild(showLocation);
         showCard.appendChild(showHeader);
         showCard.appendChild(showButton);
 
+       
+        showCard.classList.add("show-container");
+        dateTitle.classList.add("show-container__title");
+        dateTitle.classList.add("show-container__title--hide");
         shows.appendChild(showCard);
         document.querySelector("main").appendChild(shows)
     }
-    displayShows(showsArray[i]);
-}
+
+// for (let i =0; i<showsArray.length; i++){
+//         displayShows(showsArray[i]);
+// }

@@ -81,4 +81,10 @@ iframe {
     width: 50%;
     height: 150px;
   }
+}
+
+@media (min-width: 768px) {
+  .show-container__title--hide {
+    display: none;
+  }
 }/*# sourceMappingURL=shows.css.map */

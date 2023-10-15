@@ -1,36 +1,42 @@
-const commentsArray = [
-    {
-        name:"Connor Walton",
-        date:"02/17/2021",
-        comment:"This is art. This is inexplicable magic expressed in the purest way, everything that makes up this majestic work deserves reverence. Let us appreciate this for what it is and what it contains."
-    }, 
-    {
-        name:"Emilie Beach",
-        date:"01/09/2021",
-        comment:"I feel blessed to have seen them in person. What a show! They were just perfection. If there was one day of my life I could relive, this would be it. What an incredible day."
-    },
-    {
-        name:"Miles Acosta",
-        date:"12/20/2020",
-        comment:"I can't stop listening. Every time I hear one of their songs - the vocals - it gives me goosebumps. Shivers straight down my spine. What a beautiful expression of creativity. Can't get enough."
-    }
-]
+import {BandSiteAPI} from "./band-site-api.js"
+
+const apiKey = "fb090a24-a346-489b-806e-999ee80c8a37"
+
+const myBandSiteAPI =  new BandSiteAPI(apiKey);
+
+let commentArray = [];
+
+
+async function fetchComments(){
+     commentArray = await myBandSiteAPI.getComments();
+     const sortedArray = commentArray.sort((a,b) => b.timestamp-a.timestamp);
+     displayAllComments(sortedArray);
+}
+
+ fetchComments();
+
+ async function addComment(comment){
+    const result = await myBandSiteAPI.postComment(comment);
+ }
+
+
+
 
 const comments = document.createElement("div");
 comments.classList.add("comments");
 
-// comments.innerText ="";
 function displayComment(commentObj){
     const commentCard = document.createElement("article");
     const commentHeader = document.createElement("div");
    
     const commentName = document.createElement("p");
     const commentTime = document.createElement('p');
+    const commentContainer = document.createElement('div')
     const commentText = document.createElement("p");
-    const commentImg = document.createElement("img"); //add img
-    // commentImg.src = "./assets/Images/Mohan-muruge.jpg";
+    const commentImg = document.createElement("img"); 
+
     commentName.innerText = commentObj.name;
-    commentTime.innerText = commentObj.date;
+    commentTime.innerText = new Date(commentObj.timestamp).toLocaleDateString();
     commentText.innerText = commentObj.comment;
     
     commentCard.classList.add("comments__card")
@@ -43,8 +49,9 @@ function displayComment(commentObj){
     commentCard.appendChild(commentImg)
     commentHeader.appendChild(commentName);
     commentHeader.appendChild(commentTime);
-    commentCard.appendChild(commentHeader);
-    commentCard.appendChild(commentText);
+    commentContainer.appendChild(commentHeader);
+    commentContainer.appendChild(commentText);
+    commentCard.appendChild(commentContainer);
     comments.appendChild(commentCard);
 
 
@@ -52,6 +59,7 @@ function displayComment(commentObj){
     
 
 }
+
 function displayAllComments(commentsArray){
     for(let i = 0; i<commentsArray.length; i++){
         displayComment(commentsArray[i]);
@@ -59,29 +67,41 @@ function displayAllComments(commentsArray){
 
 }
 
-displayAllComments(commentsArray);
+
 
 
 const form = document.getElementById("myForm");
 
 form.addEventListener('submit', function(e){
     e.preventDefault();
-    formName = e.target.name.value;
-    formMessage = e.target.message.value;
+    const formName = e.target.name.value;
+    const formMessage = e.target.message.value;
 
     const newComment = {
         name: formName,
-        date: "10/10/2023" ,
+        timestamp: Date.now().toLocaleDateString() ,
         comment: formMessage
     }
 
+    const postComment = {
+        name: formName,
+        comment: formMessage
+    } 
+
+    console.log(newComment.date)
     document.querySelector(".comments").innerText = "";
+    commentArray.unshift(newComment);
+    console.log(commentArray);
 
+    addComment(postComment);
 
-    commentsArray.splice(0,0,newComment)
-
-    displayAllComments(commentsArray);
+    displayAllComments(commentArray);
     document.getElementById("myForm").reset();
     
 });
 
+
+
+var myDate = new Date(Date.now());
+// document.write(myDate.toGMTString()+"<br>"+myDate.toLocaleString());
+console.log(myDate.toLocaleDateString())
